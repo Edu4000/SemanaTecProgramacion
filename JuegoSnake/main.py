@@ -29,6 +29,7 @@ snake = [vector(10, 0)]
 aim = vector(0, -10)
 print("Perro")
 print("Gato")
+print("Hola crayola")
 
 def change(x, y):
     "Change snake direction."
