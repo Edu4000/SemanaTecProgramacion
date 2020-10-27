@@ -21,7 +21,6 @@ while colorIndexF == colorIndexS:
     colorIndexF = random.randint(0, 4)
 
 colorS = ['green', 'black', 'blue', 'yellow', 'brown']
-
 colorF = ['green', 'black', 'blue', 'yellow', 'brown']
 
 food = vector(0, 0)
