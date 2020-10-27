@@ -11,7 +11,6 @@ Exercises
 """
 
 from turtle import *
-from turtle import circle as cc
 from freegames import vector
 import math
 
