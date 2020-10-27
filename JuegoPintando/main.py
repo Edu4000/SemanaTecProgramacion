@@ -13,6 +13,7 @@ Exercises
 from turtle import *
 from turtle import circle as cc
 from freegames import vector
+import math
 
 
 def line(start, end):
@@ -37,25 +38,24 @@ def square(start, end):
     end_fill()
 
 
-# def circle(start, end): # Este es el codigo feo edu
-#     # Draw circle from start to end.
-#     begin_fill()
-#     for i in range(360):
-#         up()
-#         goto(start.x, start.y)
-#         down()
-#         forward(((start.y - end.y)**2 + (start.x-end.y)**2)**0.5)
-#         right(1)
-#     end_fill()
-
-
-def circle(start, end): # este es el codigo elegante jaja
-    # Draw circle from start to end.
+def circle(start, end):
+    centerX = start.x + (end.x - start.x)/2
+    centerY = start.y + (end.y - start.y)/2
+    radius = math.sqrt((end.x-start.x)**2+(end.y-start.y)**2)/2
+    up()
+    pos_X = radius * math.cos(math.radians(0)) + centerX
+    pos_Y = radius * math.sin(math.radians(0)) + centerY
+    goto(pos_X, pos_Y)
+    down()
     begin_fill()
-    radius = ((start.y - end.y)**2 + (start.x-end.y)**2)**0.5
-    cc(radius)
-    end_fill()
+    for i in range(359):
+        posX = radius * math.cos(math.radians(1+i)) + centerX
+        posY = radius * math.sin(math.radians(1+i)) + centerY
+        goto(posX, posY)
+        down()
 
+    end_fill()
+    
 
 def rectangle(start, end):
     # Draw rectangle from start to end.
