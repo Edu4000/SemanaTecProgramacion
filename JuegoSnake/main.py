@@ -51,8 +51,8 @@ def move():
         update()
         return
     elif not inside(food):
-        print("Your food has just escaped!")
-        return
+        food.x = randrange(-15, 15) * 10
+        food.y = randrange(-15, 15) * 10
 
     snake.append(head) # vector de [pos antes, pos despues]
 
