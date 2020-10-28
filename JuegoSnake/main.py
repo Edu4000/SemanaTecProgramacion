@@ -1,8 +1,9 @@
 from turtle import *
 from random import randrange, choice
 from freegames import square, vector
-
 import random
+
+
 colorIndexS = random.randint(0,4)
 colorIndexF = random.randint(0,4)
 
@@ -30,7 +31,7 @@ def inside(head):
 
 def move():
     "Move snake forward one segment."
-    head = snake[-1].copy() # posicion antes de moverse
+    head = snake[-1].copy() # posicion de la cabeza antes de moverse
     head.move(aim) # posicion despues de moverse
     food.move(vector(choice([-10, 0, 10]), choice([-10, 0, 10])))
 
