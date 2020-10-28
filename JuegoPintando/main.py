@@ -38,6 +38,7 @@ def square(start, end):
 
 
 def circle(start, end):
+    # Se obtiene el punto medio
     centerX = start.x + (end.x - start.x)/2
     centerY = start.y + (end.y - start.y)/2
     radius = math.sqrt((end.x-start.x)**2+(end.y-start.y)**2)/2
@@ -47,6 +48,7 @@ def circle(start, end):
     goto(pos_X, pos_Y)
     down()
     begin_fill()
+    # Aplicacion del plano polar para crear circulo
     for i in range(359):
         posX = radius * math.cos(math.radians(1+i)) + centerX
         posY = radius * math.sin(math.radians(1+i)) + centerY
