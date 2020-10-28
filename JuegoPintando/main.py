@@ -1,15 +1,3 @@
-"""Paint, for drawing shapes.
-
-Exercises
-
-1. Add a color.
-2. Complete circle.
-3. Complete rectangle.
-4. Complete triangle.
-5. Add width parameter.
-
-"""
-
 from turtle import *
 from freegames import vector
 import math
@@ -37,13 +25,13 @@ def square(start, end):
     end_fill()
 
 
-def circle(start, end):
-    # Se obtiene el punto medio
-    centerX = start.x + (end.x - start.x)/2
-    centerY = start.y + (end.y - start.y)/2
-    radius = math.sqrt((end.x-start.x)**2+(end.y-start.y)**2)/2
+
+def circle(start, end): # Los puntos del inicio y final son el diametro del circulo
+    centerX = start.x + (end.x - start.x)/2 # Se define el centro del circulo y la distancia desde el centro del plano al circulo en x
+    centerY = start.y + (end.y - start.y)/2 # Se define el centro del circulo y la distancia desde el centro del plano al circulo en y
+    radius = math.sqrt((end.x-start.x)**2+(end.y-start.y)**2)/2 # Distancia euclidiana entre el centro y la circunferencia
     up()
-    pos_X = radius * math.cos(math.radians(0)) + centerX
+    pos_X = radius * math.cos(math.radians(0)) + centerX # Cada posicion del circulo se define apartir de la definicion de un circulo en el plano polar
     pos_Y = radius * math.sin(math.radians(0)) + centerY
     goto(pos_X, pos_Y)
     down()
@@ -65,7 +53,7 @@ def rectangle(start, end):
     down()
     begin_fill()
 
-    for count in range(2):
+    for count in range(2): # contador para los dos lados del rectangulo
         forward(end.x - start.x)
         right(90)
         forward((end.x - start.x)/2)

@@ -1,29 +1,20 @@
-"""
-Exercises
-
-1. Change the board.
-2. Change the number of ghosts.
-3. Change where pacman starts.
-4. Make the ghosts faster/slower.
-5. Make the ghosts smarter.
-
-"""
-
 from random import choice
 from turtle import *
 from freegames import floor, vector
 
 state = {'score': 0}
-path = Turtle(visible=False)
-writer = Turtle(visible=False)
-aim = vector(5, 0)
-pacman = vector(-40, -80)
+path = Turtle(visible=False) # pacman
+writer = Turtle(visible=False) # comida de pacman
+aim = vector(5, 0) # dirección hacia donde se mueve
+pacman = vector(-40, -80) # valor inicial de pacman (spawnpoint)
+
 ghosts = [
     [vector(-180, 160), vector(5, 0)],
     [vector(-180, -160), vector(0, 5)],
     [vector(100, 160), vector(0, -5)],
     [vector(100, -160), vector(-5, 0)],
-]
+] # spawnpoint de fantasmas con direccion inicial
+
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -46,7 +37,7 @@ tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
-
+# 0 son muros y 1 son path
 
 def square(x, y):
     "Draw square using path at (x, y)."
@@ -55,7 +46,7 @@ def square(x, y):
     path.down()
     path.begin_fill()
 
-    for count in range(4):
+    for count in range(4): #  Se genera el tablero
         path.forward(20)
         path.left(90)
 
@@ -65,8 +56,11 @@ def square(x, y):
 def offset(point):
     "Return offset of point in tiles."
     x = (floor(point.x, 20) + 200) / 20
+    print("x", x)
     y = (180 - floor(point.y, 20)) / 20
+    print("y", y)
     index = int(x + y * 20)
+    print("index", index)
     return index
 
 
@@ -111,24 +105,24 @@ def move():
 
     clear()
 
-    if valid(pacman + aim):
+    if valid(pacman + aim): # Si el movimiento es posible, moverse
         pacman.move(aim)
 
-    index = offset(pacman)
+    index = offset(pacman) # indice del objeto. El indice se encuentra por una transformada del plano con respecto a la matriz.
 
-    if tiles[index] == 1:
+    if tiles[index] == 1: # Si el indice esta lleno, entonces ese indice se vuelve 2 y ya no esta lleno
         tiles[index] = 2
-        state['score'] += 1
+        state['score'] += 1 # se le agrega al score
         x = (index % 20) * 20 - 200
         y = 180 - (index // 20) * 20
-        square(x, y)
+        square(x, y) # se pinta el square
 
     up()
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
     for point, course in ghosts:
-        if valid(point + course):
+        if valid(point + course): # Si el rumbo actual es valido, moverse
             point.move(course)
         else:
             options = [
@@ -137,12 +131,12 @@ def move():
                 vector(0, 5),
                 vector(0, -5),
             ]
-            plan = choice(options)
-            course.x = plan.x
+            plan = choice(options) # Random.choice
+            course.x = plan.x # se actualiza el curso con alguna opcion aleatoria en x y y
             course.y = plan.y
 
         up()
-        goto(point.x + 10, point.y + 10)
+        goto(point.x + 10, point.y + 10) # se mueve y dibuja
         dot(20, 'red')
 
     update()
