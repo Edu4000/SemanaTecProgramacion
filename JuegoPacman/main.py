@@ -2,7 +2,7 @@ from random import choice
 from turtle import *
 from freegames import floor, vector
 
-state = {'score': 0}
+state = {'score': 0} # puntaje
 path = Turtle(visible=False) # pacman
 writer = Turtle(visible=False) # comida de pacman
 aim = vector(5, 0) # dirección hacia donde se mueve
@@ -11,11 +11,14 @@ pacman = vector(-40, -80) # valor inicial de pacman (spawnpoint)
 
 # spawnpoint de fantasmas con direccion inicial
 ghosts = [
-    [vector(-180, 160), vector(5, 0)],
-    [vector(-180, -160), vector(0, 5)],
-    [vector(100, 160), vector(0, -5)],
-    [vector(100, -160), vector(-5, 0)],
-]
+    [vector(-180, 160), vector(8, 0)],
+    [vector(-180, -160), vector(0, 8)],
+    [vector(100, 160), vector(0, -8)],
+    [vector(100, -160), vector(-8, 0)],
+] # spawnpoint de fantasmas con direccion y velocidad inicial
+  # Velocidad establecida mayor a pacman
+
+# Tablero modificado
 
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -23,15 +26,15 @@ tiles = [
     0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
     0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
     0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
     0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
@@ -65,7 +68,7 @@ def square(x, y):
     path.begin_fill()
 
     for count in range(4): #  Se genera el tablero
-        path.forward(20)
+        path.forward(20) # Cada cuadro (posicion) es de  20x20
         path.left(90)
 
     path.end_fill()
@@ -73,19 +76,22 @@ def square(x, y):
 
 def offset(point):
     "Return offset of point in tiles."
-    x = (floor(point.x, 20) + 200) / 20 # 200
+    # Determinar que posicion del canvas pertenece a que posicion de tiles
+    x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
+    # Regresa indice determinado
     return index
 
 
 def valid(point):
     "Return True if point is valid in tiles."
+    # Se obtiene indice en tiles
     index = offset(point)
-
+    # El indice es path o pared?
     if tiles[index] == 0:
         return False
-
+    # El siguiente indice es path o pared?
     index = offset(point + 19)
 
     if tiles[index] == 0:
@@ -101,12 +107,12 @@ def world():
 
     for index in range(len(tiles)):
         tile = tiles[index]
-
+        # Representacion grafica del path
         if tile > 0:
             x = (index % 20) * 20 - 200
             y = 180 - (index // 20) * 20
             square(x, y)
-
+            # Puntos de objetivos
             if tile == 1:
                 path.up()
                 path.goto(x + 10, y + 10)
@@ -131,7 +137,7 @@ def move():
         x = (indexP % 20) * 20 - 200
         y = 180 - (indexP // 20) * 20
         square(x, y) # se pinta el square
-
+    # Se pinta bolita de "score"
     up()
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
@@ -159,6 +165,8 @@ def move():
         if valid(point + course): # Si el rumbo actual es valido, moverse
             point.move(course)
         else:
+            # Los vectores se modificaron para una mayor magnitud:velocidad
+            # Representan directtion y velocidad
             options = [
                 vector(5, 0), # Right
                 vector(-5, 0), # Left
