@@ -167,7 +167,7 @@ def move():
                     direcy = vector(0, -5).y
                     pursuit = True
 
-        if valid(point + course) and pursuit == True: # Si el rumbo actual es valido, moverse
+        if pursuit == True: # Si el rumbo actual es valido, moverse
             print("Lol")
         elif valid(point + course):
             point.move(course)
