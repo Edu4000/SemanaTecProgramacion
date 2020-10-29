@@ -47,14 +47,14 @@ def move():
     "Move ball and targets."
     if randrange(40) == 0:
         y = randrange(-150, 150)
-        target = vector(200, y)
+        target = vector(200, y) # 200
         targets.append(target)
 
     for target in targets:
         target.x -= 0.5
 
     if inside(ball):
-        speed.y -= 0.35
+        speed.y -= 0.35 # 0.35
         ball.move(speed)
 
     dupe = targets.copy()
@@ -68,9 +68,10 @@ def move():
 
     for target in targets:
         if not inside(target):
-            return
+            target.x = 200 # Una vez que el target llega al final, se regresa al inicio en la x mismo punto en y
 
-    ontimer(move, 50)
+
+    ontimer(move, 50) # 50
 
 setup(420, 420, 370, 0)
 hideturtle()
