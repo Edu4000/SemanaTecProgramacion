@@ -148,22 +148,28 @@ def move():
         for corridor in auxList:  # 0 fila, 1 columna
             if indexF in corridor and indexP in corridor:
                 if indexF > indexP and corridor[-1] == 0:
-                    course.x = vector(-5, 0).x
-                    course.y = vector(-5, 0).y
+                    direcx = vector(-5, 0).x
+                    direcy = vector(-5, 0).y
+                    pursuit = True
 
                 elif indexF > indexP and corridor[-1] == 1:
-                    course.x = vector(0, 5).x
-                    course.y = vector(0, 5).y
+                    direcx = vector(0, 5).x
+                    direcy = vector(0, 5).y
+                    pursuit = True
 
                 elif indexF < indexP and corridor[-1] == 0:
-                    course.x = vector(5, 0).x
-                    course.y = vector(5, 0).y
+                    direcx = vector(5, 0).x
+                    direcy = vector(5, 0).y
+                    pursuit = True
 
                 elif indexF < indexP and corridor[-1] == 1:
-                    course.x = vector(0, -5).x
-                    course.y = vector(0, -5).y
+                    direcx = vector(0, -5).x
+                    direcy = vector(0, -5).y
+                    pursuit = True
 
-        if valid(point + course): # Si el rumbo actual es valido, moverse
+        if valid(point + course) and pursuit == True: # Si el rumbo actual es valido, moverse
+            print("Lol")
+        elif valid(point + course):
             point.move(course)
         else:
             # Los vectores se modificaron para una mayor magnitud:velocidad
@@ -179,7 +185,7 @@ def move():
             course.y = plan.y
 
         up()
-        goto(point.x + 12, point.y + 12) # se mueve y dibuja
+        goto(point.x + 10, point.y + 10) # se mueve y dibuja
         dot(20, 'red')
 
     update()
