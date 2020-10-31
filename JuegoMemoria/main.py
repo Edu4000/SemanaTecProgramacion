@@ -1,10 +1,29 @@
+import sys
 from random import *
 from turtle import *
 from freegames import path
 
-
 car = path('car.gif')
-tiles = list(range(32)) * 2
+
+# Se define un loop para ingresar la modalidad deseada mientras que funcione
+while True:
+    try:
+        num_or_colors = int(input("Ingrese algún número: 0. Numero | 1. Letras con acentos | 2. Salir\n"))
+        if num_or_colors == 0:
+            tiles = list(range(32)) * 2
+            break
+        elif num_or_colors == 1:
+            tiles = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r",
+                     "s", "t", "u", "v", "w", "x", "y", "z", "ó", "í", "é", "á", "ú", "a", "b", "c", "d", "e", "f",
+                     "g", "h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+                     "y", "z", "ó", "í", "é", "á", "ú"]
+            break
+        elif num_or_colors == 2:
+            sys.exit(0)
+
+    except ValueError: # Si hay un error al ingresar los numero, vuelva a intentar
+        print("Por favor intente de nuevo")
+
 state = {'mark': None, 'numTap':0}
 hide = [True] * 64
 
@@ -20,13 +39,16 @@ def square(x, y):
         left(90)
     end_fill()
 
+
 def index(x, y):
     "Convert (x, y) coordinates to tiles index."
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
+
 def xy(count):
     "Convert tiles count to (x, y) coordinates."
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
+
 
 def tap(x, y):
     "Update mark and hidden tiles based on tap."
@@ -48,6 +70,7 @@ def tap(x, y):
         hide[mark] = False
         state['mark'] = None
 
+
 def draw():
     "Draw image and tiles."
     clear()
@@ -64,11 +87,12 @@ def draw():
     mark = state['mark']
 
     if mark is not None and hide[mark]:
+        # Si no estan marcados, se marca
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x + 25.6, y) # El valor fue encontrado empiricamente
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(tiles[mark], align='center', font=('Arial', 28, 'normal')) # En el Write se alinea el numero al centro
 
     # Si todos los tiles estan ocultos. Se acabo el juego
     if not any(hide):
