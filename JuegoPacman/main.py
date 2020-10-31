@@ -11,10 +11,10 @@ pacman = vector(-40, -80) # valor inicial de pacman (spawnpoint)
 
 # spawnpoint de fantasmas con direccion inicial
 ghosts = [
-    [vector(-180, 160), vector(8, 0)],
-    [vector(-180, -160), vector(0, 8)],
-    [vector(100, 160), vector(0, -8)],
-    [vector(100, -160), vector(-8, 0)],
+    [vector(-180, 160), vector(7, 0)],
+    [vector(-180, -160), vector(0, 7)],
+    [vector(100, 160), vector(0, -7)],
+    [vector(100, -160), vector(-7, 0)],
 ] # spawnpoint de fantasmas con direccion y velocidad inicial
   # Velocidad establecida mayor a pacman
 
@@ -43,22 +43,21 @@ tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 
-# Lista de pasillos
-auxList = [[21, 22, 23, 24, 25, 26, 27, 0], [29, 30, 31, 32, 33, 34, 35, 0],
-           [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 0],
-           [101, 102, 103, 104, 0], [106, 107, 0], [109, 110, 0], [112, 113, 114, 115, 0],
-           [146, 147, 148, 149, 150, 0], [161, 162, 163, 164, 165, 166, 0], [170, 171, 172, 173, 174, 175, 0],
-           [186, 187, 188, 189, 190, 0], [221, 222, 223, 224, 225, 226, 227, 0], [229, 230, 231, 232, 233, 234, 235, 0],
-           [261, 262, 0], [264, 265, 266, 267, 268, 269, 270, 271, 272, 0], [274, 275, 0],
-           [301, 302, 303, 304, 0], [306, 307, 0], [309, 310, 0], [312, 313, 314, 315, 0],
-           [341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 0],
-           [21, 41, 61, 81, 101, 121, 141, 161, 1], [221, 241, 261, 1], [301, 321, 341, 1], [262, 282, 302, 1],
-           [24, 44, 64, 84, 104, 124, 144, 164, 184, 204, 224, 244, 264, 284, 304, 1], [66, 86, 106, 1],
-           [146, 166, 186, 206, 226, 1], [266, 286, 306, 1], [27, 47, 67, 1], [107, 127, 147, 1], [227, 257, 267, 1],
-           [307, 327, 347, 1], [29, 49, 69, 1], [109, 129, 149, 1], [229, 249, 269, 1], [309, 329, 349, 1],
-           [310, 290, 270, 1], [150, 170, 190, 210, 230, 1], [110, 90, 70, 1],
-           [32, 52, 72, 92, 112, 132, 152, 172, 192, 212, 232, 1], [272, 292, 312, 1], [274, 294, 314, 1],
-           [315, 335, 355, 1], [175, 195, 215, 235, 255, 275, 1], [35, 55, 75, 95, 115, 1]]
+# Lista de pasillos, 0 fila, 1 columna
+auxList =[[21, 22, 23, 24, 25, 26, 27, 0], [29, 30, 31, 32, 33, 34, 35, 0],
+          [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 0], [101, 102, 103, 104, 0],
+          [106, 107, 108, 109, 110, 0], [112, 113, 114, 115, 0], [146, 147, 148, 149, 150, 0],
+          [161, 162, 163, 164, 165, 166, 0], [170, 171, 172, 173, 174, 175, 0], [186, 187, 188, 189, 190, 0],
+          [221, 222, 223, 224, 225, 226, 227, 0], [229, 230, 231, 232, 233, 234, 235, 0],
+          [261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 0],
+          [301, 302, 303, 304, 0], [306, 307, 0], [309, 310, 0], [312, 313, 314, 315, 0],
+          [341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 0],
+          [21, 41, 61, 81, 101, 121, 141, 161, 181, 201, 221, 241, 261, 1], [301, 321, 341, 1], [262, 282, 302, 1],
+          [24, 44, 64, 84, 104, 124, 144, 164, 184, 204, 224, 1], [264, 284, 304, 1], [266, 286, 306, 1],
+          [146, 166, 186, 206, 226, 1], [66, 86, 106, 1], [27, 47, 67, 1], [227, 247, 267, 1], [307, 327, 347, 1],
+          [309, 329, 349, 1], [270, 290, 310, 1], [150, 170, 190, 210, 230, 1], [50, 70, 1],
+          [32, 52, 72, 92, 112, 132, 152, 172, 192, 212, 232, 1], [272, 292, 312, 1], [274, 294, 314, 1],
+          [35, 55, 75, 95, 115, 135, 155, 175, 195, 215, 235, 255, 275, 1],[315, 335, 355, 1]]
 
 
 def square(x, y):
@@ -125,8 +124,7 @@ def move():
     writer.undo()
     writer.write(state['score'])
     clear()
-    pursuit = False
-
+    memory = vector(0, 0)
     if valid(pacman + aim): # Si el movimiento es posible, moverse
         pacman.move(aim)
 
@@ -148,37 +146,31 @@ def move():
         for corridor in auxList:  # 0 fila, 1 columna
             if indexF in corridor and indexP in corridor:
                 if indexF > indexP and corridor[-1] == 0:
-                    direcx = vector(-5, 0).x
-                    direcy = vector(-5, 0).y
-                    pursuit = True
+                    course.x = vector(-7, 0).x
+                    course.y = vector(-7, 0).y
 
                 elif indexF > indexP and corridor[-1] == 1:
-                    direcx = vector(0, 5).x
-                    direcy = vector(0, 5).y
-                    pursuit = True
+                    course.x = vector(0, 7).x
+                    course.y = vector(0, 7).y
 
                 elif indexF < indexP and corridor[-1] == 0:
-                    direcx = vector(5, 0).x
-                    direcy = vector(5, 0).y
-                    pursuit = True
+                    course.x = vector(7, 0).x
+                    course.y = vector(7, 0).y
 
                 elif indexF < indexP and corridor[-1] == 1:
-                    direcx = vector(0, -5).x
-                    direcy = vector(0, -5).y
-                    pursuit = True
+                    memory.x = vector(0, -7).x
+                    memory.y = vector(0, -7).y
 
-        if pursuit == True: # Si el rumbo actual es valido, moverse
-            print("Lol")
-        elif valid(point + course):
+        if valid(point + course):
             point.move(course)
         else:
             # Los vectores se modificaron para una mayor magnitud:velocidad
             # Representan directtion y velocidad
             options = [
-                vector(5, 0), # Right
-                vector(-5, 0), # Left
-                vector(0, 5), # Up
-                vector(0, -5), # Down
+                vector(7, 0), # Right
+                vector(-7, 0), # Left
+                vector(0, 7), # Up
+                vector(0, -7), # Down
             ]
             plan = choice(options) # Random.choice
             course.x = plan.x # se actualiza el curso con alguna opcion aleatoria en x y y
